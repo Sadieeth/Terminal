@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ghost Matrix Terminal - Quotes</title>
+    <title>Clean Matrix Terminal - Quotes</title>
     <style>
         body {
             background-color: black;
@@ -25,25 +25,23 @@
             z-index: 1;
             text-align: center;
             background: transparent; 
-            padding: 20px;
+            padding: 25px;
             max-width: 85%;
         }
         #quote {
-            /* Kept slightly smaller for mobile fit */
-            font-size: 24px; 
+            /* Increased size and removed text-shadow for clarity */
+            font-size: 28px; 
             color: #ffffff;
             font-weight: bold;
-            text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
-            margin-bottom: 10px;
-            line-height: 1.3;
+            margin-bottom: 12px;
+            line-height: 1.4;
             text-transform: uppercase;
         }
         #author {
-            font-size: 16px;
-            color: #ffffff;
-            text-shadow: 0 0 8px #ffffff;
-            letter-spacing: 3px;
-            opacity: 0.8;
+            /* Sharp white text without glow */
+            font-size: 18px;
+            color: #cccccc; 
+            letter-spacing: 4px;
             text-transform: uppercase;
         }
     </style>
@@ -51,12 +49,11 @@
 <body>
     <canvas id="matrix"></canvas>
     <div class="container">
-        <div id="quote">"INITIALIZING LIQUIDITY LEVIATHAN..."</div>
+        <div id="quote">"ESTABLISHING LIQUIDITY..."</div>
         <div id="author">- SYSTEM</div>
     </div>
 
     <script>
-        // --- GREY MATRIX RAIN ---
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -81,22 +78,27 @@
             }
         }
 
-        // --- FULL ORIGINAL QUOTES DATABASE ---
+        // --- EXPANDED TRADING & PSYCHOLOGY DATABASE ---
         const quotes = [
-            {t: "THE TREND IS YOUR FRIEND.", a: "UNKNOWN"},
-            {t: "TRADE WHAT YOU SEE, NOT WHAT YOU THINK.", a: "MARKET MAXIM"},
-            {t: "CUT YOUR LOSSES SHORT. LET YOUR WINNERS RUN.", a: "ED SEYKOTA"},
-            {t: "RISK COMES FROM NOT KNOWING WHAT YOU'RE DOING.", a: "WARREN BUFFETT"},
-            {t: "PLAN THE TRADE. TRADE THE PLAN.", a: "TRADING MAXIM"},
-            {t: "AMATEURS FOCUS ON REWARDS. PROS FOCUS ON RISK.", a: "UNKNOWN"},
-            {t: "MARKETS CAN REMAIN IRRATIONAL LONGER THAN YOU SOLVENT.", a: "KEYNES"},
-            {t: "IF YOU CAN'T TAKE A SMALL LOSS, YOU WILL EVENTUALLY TAKE THE MOTHER OF ALL LOSSES.", a: "ED SEYKOTA"},
-            {t: "BEAR MARKETS HAVE NO SUPPORT. BULL MARKETS HAVE NO RESISTANCE.", a: "UNKNOWN"},
-            {t: "THE GOAL OF A SUCCESSFUL TRADER IS TO MAKE THE BEST TRADES. MONEY IS SECONDARY.", a: "ALEXANDER ELDER"},
-            {t: "TRADING DOES NOT JUST REVEAL YOUR CHARACTER; IT ALSO BUILDS IT IF YOU STAY IN THE GAME.", a: "YVAN BYAJEE"},
-            {t: "DISCIPLINE IS DOING WHAT NEEDS TO BE DONE, EVEN IF YOU DON'T WANT TO DO IT.", a: "UNKNOWN"},
-            {t: "HE WHO DRINKS FROM THE CUP OF FOMO SHALL DROWN IN THE SEA OF RECKONING.", a: "JUSTIN KASE"},
-            {t: "PATIENCE IS THE KEY TO THE VAULT.", a: "LIQUIDITY LEVIATHAN"}
+            {t: "THE GOAL IS NOT TO BE RIGHT, THE GOAL IS TO BE PROFITABLE.", a: "UNKNOWN"},
+            {t: "DON'T FOCUS ON MAKING MONEY; FOCUS ON PROTECTING WHAT YOU HAVE.", a: "PAUL TUDOR JONES"},
+            {t: "THE MARKET IS A DEVICE FOR TRANSFERRING MONEY FROM THE IMPATIENT TO THE PATIENT.", a: "WARREN BUFFETT"},
+            {t: "WINNING TRADERS DO NOT PREDICT; THEY REACT TO WHAT THE MARKET DOES.", a: "UNKNOWN"},
+            {t: "YOU DON'T NEED TO KNOW WHAT IS GOING TO HAPPEN NEXT TO MAKE MONEY.", a: "MARK DOUGLAS"},
+            {t: "AMATEURS THINK ABOUT HOW MUCH THEY CAN MAKE. PROFESSIONALS THINK ABOUT HOW MUCH THEY CAN LOSE.", a: "JACK SCHWAGER"},
+            {t: "TRADING IS 10% MATHEMATICS, 10% PSYCHOLOGY, AND 80% WAITING.", a: "UNKNOWN"},
+            {t: "YOUR DISCIPLINE IS THE ONLY THING STANDING BETWEEN YOU AND THE MARKET'S LIQUIDITY.", a: "JUSTIN KASE"},
+            {t: "A LOSS IS ONLY A MISTAKE IF YOU DON'T LEARN FROM IT.", a: "MARK MINERVINI"},
+            {t: "IT'S NOT WHETHER YOU'RE RIGHT OR WRONG, BUT HOW MUCH MONEY YOU MAKE WHEN YOU'RE RIGHT.", a: "GEORGE SOROS"},
+            {t: "IF YOU CAN'T MANAGE YOUR EMOTIONS, YOU CAN'T MANAGE YOUR MONEY.", a: "UNKNOWN"},
+            {t: "EVERY BATTLE IS WON BEFORE IT IS EVER FOUGHT.", a: "SUN TZU"},
+            {t: "DO NOT ANTICIPATE. WAIT FOR CONFIRMATION.", a: "JESSE LIVERMORE"},
+            {t: "RISK ONLY WHAT YOU CAN AFFORD TO LOSE WITHOUT LOSING YOUR MIND.", a: "TRADING MAXIM"},
+            {t: "THE MARKET DOES NOT OWE YOU ANYTHING.", a: "UNKNOWN"},
+            {t: "BECOME A MASTER OF ONE SETUP RATHER THAN A JACK OF ALL TRADES.", a: "UNKNOWN"},
+            {t: "PRICE HAS NO MEMORY. THE MARKET DOESN'T CARE WHERE YOU BOUGHT.", a: "UNKNOWN"},
+            {t: "PLAN YOUR TRADE AND TRADE YOUR PLAN.", a: "LINDA RASCHKE"},
+            {t: "TRADE THE CHART, NOT THE P&L.", a: "UNKNOWN"}
         ];
 
         function updateQuote() {
@@ -106,7 +108,7 @@
         }
 
         setInterval(drawMatrix, 60);
-        setInterval(updateQuote, 25000); // Rotates every 25 seconds
+        setInterval(updateQuote, 20000); // 20-second rotation for a faster desk feel
         updateQuote();
 
         window.addEventListener('resize', () => {
