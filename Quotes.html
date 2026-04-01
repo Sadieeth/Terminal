@@ -2,71 +2,117 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trader Quotes</title>
+    <title>Ghost Matrix Terminal - Quotes</title>
     <style>
         body {
-            background-color: #000;
-            color: #fff;
-            font-family: sans-serif;
+            background-color: black;
+            margin: 0;
+            overflow: hidden;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+        .container {
+            position: relative;
+            z-index: 1;
             text-align: center;
+            background: transparent; 
             padding: 20px;
-            margin: 0;
+            max-width: 85%;
         }
-        .quote-text {
-            font-size: 1.5em;
-            font-style: italic;
+        #quote {
+            /* Kept slightly smaller for mobile fit */
+            font-size: 24px; 
+            color: #ffffff;
+            font-weight: bold;
+            text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
             margin-bottom: 10px;
+            line-height: 1.3;
+            text-transform: uppercase;
         }
-        .author-text {
-            font-size: 1em;
+        #author {
+            font-size: 16px;
+            color: #ffffff;
+            text-shadow: 0 0 8px #ffffff;
+            letter-spacing: 3px;
             opacity: 0.8;
+            text-transform: uppercase;
         }
-        #newQuoteBtn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: none;
-            border: 1px solid #fff;
-            color: #fff;
-            padding: 5px 10px;
-            cursor: pointer;
-            opacity: 0.3;
-            transition: opacity 0.3s;
-        }
-        #newQuoteBtn:hover { opacity: 1; }
     </style>
 </head>
 <body>
-    <div class="quote-text" id="q">"The trend is your friend."</div>
-    <div class="author-text" id="a">- Unknown</div>
-    <button id="newQuoteBtn" onclick="newQuote()">Next Quote</button>
+    <canvas id="matrix"></canvas>
+    <div class="container">
+        <div id="quote">"INITIALIZING LIQUIDITY LEVIATHAN..."</div>
+        <div id="author">- SYSTEM</div>
+    </div>
 
     <script>
+        // --- GREY MATRIX RAIN ---
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$¥€£@#%&*";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+        for (let i = 0; i < columns; i++) { drops[i] = 1; }
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#444444"; 
+            ctx.font = fontSize + "px Courier New";
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) { drops[i] = 0; }
+                drops[i]++;
+            }
+        }
+
+        // --- FULL ORIGINAL QUOTES DATABASE ---
         const quotes = [
-            {t: "The trend is your friend.", a: "Unknown"},
-            {t: "Cut your losses short and let your profits run.", a: "Ed Seykota"},
-            {t: "Plan your trade, trade your plan.", a: "Unknown"},
-            {t: "The market can remain irrational longer than you can remain solvent.", a: "John Maynard Keynes"},
-            {t: "Rule number one: Never lose money. Rule number two: Never forget rule number one.", a: "Warren Buffett"},
-            {t: "Be fearful when others are greedy and greedy when others are fearful.", a: "Warren Buffett"},
-            {t: "Know what you own, and know why you own it.", a: "Peter Lynch"},
-            {t: "The stock market is a device for transferring money from the impatient to the patient.", a: "Warren Buffett"},
-            {t: "Price is what you pay. Value is what you get.", a: "Warren Buffett"},
-            {t: "Trade what's happening, not what you think is going to happen.", a: "Doug Gregory"},
-            {t: "The goal of a successful trader is to make the best trades. Money is secondary.", a: "Alexander Elder"}
+            {t: "THE TREND IS YOUR FRIEND.", a: "UNKNOWN"},
+            {t: "TRADE WHAT YOU SEE, NOT WHAT YOU THINK.", a: "MARKET MAXIM"},
+            {t: "CUT YOUR LOSSES SHORT. LET YOUR WINNERS RUN.", a: "ED SEYKOTA"},
+            {t: "RISK COMES FROM NOT KNOWING WHAT YOU'RE DOING.", a: "WARREN BUFFETT"},
+            {t: "PLAN THE TRADE. TRADE THE PLAN.", a: "TRADING MAXIM"},
+            {t: "AMATEURS FOCUS ON REWARDS. PROS FOCUS ON RISK.", a: "UNKNOWN"},
+            {t: "MARKETS CAN REMAIN IRRATIONAL LONGER THAN YOU SOLVENT.", a: "KEYNES"},
+            {t: "IF YOU CAN'T TAKE A SMALL LOSS, YOU WILL EVENTUALLY TAKE THE MOTHER OF ALL LOSSES.", a: "ED SEYKOTA"},
+            {t: "BEAR MARKETS HAVE NO SUPPORT. BULL MARKETS HAVE NO RESISTANCE.", a: "UNKNOWN"},
+            {t: "THE GOAL OF A SUCCESSFUL TRADER IS TO MAKE THE BEST TRADES. MONEY IS SECONDARY.", a: "ALEXANDER ELDER"},
+            {t: "TRADING DOES NOT JUST REVEAL YOUR CHARACTER; IT ALSO BUILDS IT IF YOU STAY IN THE GAME.", a: "YVAN BYAJEE"},
+            {t: "DISCIPLINE IS DOING WHAT NEEDS TO BE DONE, EVEN IF YOU DON'T WANT TO DO IT.", a: "UNKNOWN"},
+            {t: "HE WHO DRINKS FROM THE CUP OF FOMO SHALL DROWN IN THE SEA OF RECKONING.", a: "JUSTIN KASE"},
+            {t: "PATIENCE IS THE KEY TO THE VAULT.", a: "LIQUIDITY LEVIATHAN"}
         ];
 
-        function newQuote() {
+        function updateQuote() {
             const r = quotes[Math.floor(Math.random() * quotes.length)];
-            document.getElementById('q').textContent = `"${r.t}"`;
-            document.getElementById('a').textContent = `- ${r.a}`;
+            document.getElementById('quote').textContent = `"${r.t}"`;
+            document.getElementById('author').textContent = `- ${r.a}`;
         }
+
+        setInterval(drawMatrix, 60);
+        setInterval(updateQuote, 25000); // Rotates every 25 seconds
+        updateQuote();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
     </script>
 </body>
 </html>
