@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>White Matrix Terminal</title>
+    <title>Slow White Matrix Terminal</title>
     <style>
         body {
             background-color: black;
@@ -25,7 +25,6 @@
             position: relative;
             z-index: 1;
             text-align: center;
-            /* Semi-transparent backdrop for readability */
             background: rgba(0, 0, 0, 0.7); 
             padding: 30px;
             border-radius: 12px;
@@ -56,7 +55,6 @@
     </div>
 
     <script>
-        // --- WHITE MATRIX RAIN ---
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
 
@@ -73,10 +71,11 @@
         }
 
         function drawMatrix() {
+            // This creates the "trail" effect
             ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Changed color to White with a subtle glow
+            // CHANGED: Color is now White
             ctx.fillStyle = "#FFFFFF"; 
             ctx.font = fontSize + "px Courier New";
 
@@ -91,7 +90,6 @@
             }
         }
 
-        // --- THE CLOCK ---
         function updateClock() {
             const now = new Date();
             document.getElementById('clock').textContent = now.toLocaleTimeString();
@@ -99,7 +97,9 @@
             document.getElementById('day').textContent = now.toLocaleDateString(undefined, { weekday: 'long' });
         }
 
-        setInterval(drawMatrix, 35);
+        // SPEED TWEAK: Changed from 33 to 60 (Higher number = Slower rain)
+        setInterval(drawMatrix, 60); 
+        
         setInterval(updateClock, 1000);
         updateClock();
 
