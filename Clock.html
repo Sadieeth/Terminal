@@ -25,7 +25,6 @@
             position: relative;
             z-index: 1;
             text-align: center;
-            /* Black box removed - now fully transparent */
             background: transparent; 
             padding: 30px;
         }
@@ -33,14 +32,12 @@
             font-size: 64px;
             color: #ffffff;
             font-weight: bold;
-            /* Strong glow to stay readable against the rain */
             text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
-            margin: 0;
+            margin: 10px 0; /* Spacing above and below the clock */
         }
         #date, #day {
             font-size: 22px;
             color: #ffffff;
-            margin-top: 10px;
             text-shadow: 0 0 8px #ffffff;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -50,8 +47,8 @@
 <body>
     <canvas id="matrix"></canvas>
     <div class="container">
-        <div id="clock"></div>
         <div id="day"></div>
+        <div id="clock"></div>
         <div id="date"></div>
     </div>
 
@@ -72,10 +69,9 @@
         }
 
         function drawMatrix() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; // Slightly faster fade for cleaner look
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; 
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // CHANGED: Color to a muted Grey (#444444)
             ctx.fillStyle = "#444444"; 
             ctx.font = fontSize + "px Courier New";
 
@@ -97,8 +93,7 @@
             document.getElementById('day').textContent = now.toLocaleDateString(undefined, { weekday: 'long' });
         }
 
-        // Keep it at 60 for that smooth, professional drift
-        setInterval(drawMatrix, 35);
+        setInterval(drawMatrix, 60); // Resetting back to 60 for the slower professional speed
         setInterval(updateClock, 1000);
         updateClock();
 
