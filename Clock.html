@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Style Digital Clock</title>
+    <style>
+        body {
+            background-color: black;
+            color: #FFFFFF;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        #clock {
+            font-size: 48px;
+            text-shadow: 0 0 5px #FFFFFF, 0 0 10px #FFFFFF;
+            z-index: 1;
+        }
+        #date, #day {
+            font-size: 20px;
+            margin-top: 10px;
+            text-shadow: 0 0 3px #FFFFFF;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="clock"></div>
+    <div id="date"></div>
+    <div id="day"></div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US');
+            const dateStr = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+            const dayStr = now.toLocaleDateString('en-US', { weekday: 'long' });
+
+            document.getElementById('clock').textContent = timeStr;
+            document.getElementById('date').textContent = dateStr;
+            document.getElementById('day').textContent = dayStr;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>

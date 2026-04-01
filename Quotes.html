@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trader Quotes</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .quote-text {
+            font-size: 1.5em;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .author-text {
+            font-size: 1em;
+            opacity: 0.8;
+        }
+        #newQuoteBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: none;
+            border: 1px solid #fff;
+            color: #fff;
+            padding: 5px 10px;
+            cursor: pointer;
+            opacity: 0.3;
+            transition: opacity 0.3s;
+        }
+        #newQuoteBtn:hover { opacity: 1; }
+    </style>
+</head>
+<body>
+    <div class="quote-text" id="q">"The trend is your friend."</div>
+    <div class="author-text" id="a">- Unknown</div>
+    <button id="newQuoteBtn" onclick="newQuote()">Next Quote</button>
+
+    <script>
+        const quotes = [
+            {t: "The trend is your friend.", a: "Unknown"},
+            {t: "Cut your losses short and let your profits run.", a: "Ed Seykota"},
+            {t: "Plan your trade, trade your plan.", a: "Unknown"},
+            {t: "The market can remain irrational longer than you can remain solvent.", a: "John Maynard Keynes"},
+            {t: "Rule number one: Never lose money. Rule number two: Never forget rule number one.", a: "Warren Buffett"},
+            {t: "Be fearful when others are greedy and greedy when others are fearful.", a: "Warren Buffett"},
+            {t: "Know what you own, and know why you own it.", a: "Peter Lynch"},
+            {t: "The stock market is a device for transferring money from the impatient to the patient.", a: "Warren Buffett"},
+            {t: "Price is what you pay. Value is what you get.", a: "Warren Buffett"},
+            {t: "Trade what's happening, not what you think is going to happen.", a: "Doug Gregory"},
+            {t: "The goal of a successful trader is to make the best trades. Money is secondary.", a: "Alexander Elder"}
+        ];
+
+        function newQuote() {
+            const r = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('q').textContent = `"${r.t}"`;
+            document.getElementById('a').textContent = `- ${r.a}`;
+        }
+    </script>
+</body>
+</html>
