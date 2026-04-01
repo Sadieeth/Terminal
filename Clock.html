@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Matrix White Glow Clock</title>
+    <title>White Matrix Terminal</title>
     <style>
         body {
             background-color: black;
@@ -25,21 +25,23 @@
             position: relative;
             z-index: 1;
             text-align: center;
-            background: rgba(0, 0, 0, 0.6); 
-            padding: 20px;
-            border-radius: 10px;
+            /* Semi-transparent backdrop for readability */
+            background: rgba(0, 0, 0, 0.7); 
+            padding: 30px;
+            border-radius: 12px;
         }
         #clock {
-            font-size: 60px;
-            color: #fff;
-            /* Pure White Glow */
-            text-shadow: 0 0 10px #fff, 0 0 20px #fff;
+            font-size: 64px;
+            color: #ffffff;
+            font-weight: bold;
+            text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
+            margin: 0;
         }
         #date, #day {
             font-size: 22px;
-            color: #fff; /* Changed from green to white */
+            color: #ffffff;
             margin-top: 10px;
-            text-shadow: 0 0 8px #fff; /* Added white glow */
+            text-shadow: 0 0 8px #ffffff;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
@@ -54,6 +56,7 @@
     </div>
 
     <script>
+        // --- WHITE MATRIX RAIN ---
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
 
@@ -72,11 +75,15 @@
         function drawMatrix() {
             ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#0F0"; 
-            ctx.font = fontSize + "px arial";
+
+            // Changed color to White with a subtle glow
+            ctx.fillStyle = "#FFFFFF"; 
+            ctx.font = fontSize + "px Courier New";
+
             for (let i = 0; i < drops.length; i++) {
                 const text = letters.charAt(Math.floor(Math.random() * letters.length));
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
                 if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
                     drops[i] = 0;
                 }
@@ -84,6 +91,7 @@
             }
         }
 
+        // --- THE CLOCK ---
         function updateClock() {
             const now = new Date();
             document.getElementById('clock').textContent = now.toLocaleTimeString();
@@ -91,7 +99,7 @@
             document.getElementById('day').textContent = now.toLocaleDateString(undefined, { weekday: 'long' });
         }
 
-        setInterval(drawMatrix, 33);
+        setInterval(drawMatrix, 35);
         setInterval(updateClock, 1000);
         updateClock();
 
