@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leviathan Vision Escape</title>
+    <title>Leviathan Scope Terminal</title>
     <style>
         body {
             background-color: #000;
@@ -18,7 +18,7 @@
             position: relative;
         }
 
-        /* --- BREATH PACER --- */
+        /* --- THE BREATHING SCOPE (Z-Index 10) --- */
         .pacer-container {
             position: relative;
             z-index: 10;
@@ -28,34 +28,33 @@
         .circle {
             width: 80px;
             height: 80px;
-            border: 2px solid #222; 
+            border: 1px solid #444; 
             border-radius: 50%;
             margin: 0 auto;
             animation: breathe 10s infinite ease-in-out;
-            box-shadow: 0 0 30px rgba(255,255,255,0.03);
-            transition: border-color 1s;
+            /* Added a subtle glow to make it the "center" of the scope */
+            box-shadow: 0 0 40px rgba(255,255,255,0.05);
         }
         @keyframes breathe {
-            0%, 100% { transform: scale(1); opacity: 0.1; }
+            0%, 100% { transform: scale(1); opacity: 0.2; }
             50% { transform: scale(3.5); opacity: 1; border-color: #fff;}
         }
 
-        /* --- VISION GALLERY (Perfectly Centered Grid) --- */
+        /* --- THE CROSSHAIR GRID (Converging in the center) --- */
         .gallery-overlay {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
-            gap: 20px; /* Clean architectural spacing */
-            padding: 30px;
+            gap: 0; /* Zero gap so they meet in the center */
+            padding: 0;
             opacity: 0; 
-            transition: opacity 2.5s ease; 
+            transition: opacity 2s ease; 
             z-index: 1;
-            box-sizing: border-box;
         }
 
         body:hover .gallery-overlay {
@@ -65,27 +64,30 @@
         .vision-item {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Crops to fill */
-            object-position: center; /* Ensures the subject stays centered */
+            object-fit: cover;
             filter: grayscale(100%); 
-            border: 1px solid #111;
-            transition: filter 1.2s ease, opacity 0.5s;
+            transition: filter 1s ease;
+            border: 0.5px solid #111; /* Extremely thin crosshair lines */
         }
+
+        /* ANCHORING: This forces the "focus" of each image to the center point */
+        #top-left { object-position: bottom right; }
+        #top-right { object-position: bottom left; }
+        #bot-left { object-position: top right; }
+        #bot-right { object-position: top left; }
         
         .vision-item:hover {
             filter: grayscale(0%);
-            opacity: 1 !important;
-            border-color: #333;
         }
     </style>
 </head>
 <body>
 
     <div class="gallery-overlay">
-        <img src="penthouse.jpg" class="vision-item" title="DISCIPLINE">
-        <img src="supercar.jpg" class="vision-item" title="PRECISION">
-        <img src="sanctuary.jpg" class="vision-item" title="CONTROL">
-        <img src="structure.jpg" class="vision-item" title="STRUCTURE">
+        <img src="penthouse.jpg" id="top-left" class="vision-item">
+        <img src="supercar.jpg" id="top-right" class="vision-item">
+        <img src="sanctuary.jpg" id="bot-left" class="vision-item">
+        <img src="structure.jpg" id="bot-right" class="vision-item">
     </div>
 
     <div class="pacer-container">
