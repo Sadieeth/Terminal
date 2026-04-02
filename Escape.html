@@ -18,29 +18,28 @@
             position: relative;
         }
 
-        /* --- BREATH PACER (Z-Index 2) --- */
+        /* --- BREATH PACER --- */
         .pacer-container {
             position: relative;
             z-index: 10;
             text-align: center;
-            pointer-events: none; /* Let hover pass through to gallery */
+            pointer-events: none; 
         }
         .circle {
             width: 80px;
             height: 80px;
-            border: 2px solid #555; /* Soft grey ring */
+            border: 2px solid #333;
             border-radius: 50%;
             margin: 0 auto;
             animation: breathe 10s infinite ease-in-out;
-            box-shadow: 0 0 15px rgba(255,255,255,0.05);
-            transition: border-color 1s;
+            box-shadow: 0 0 20px rgba(255,255,255,0.05);
         }
         @keyframes breathe {
             0%, 100% { transform: scale(1); opacity: 0.1; }
-            50% { transform: scale(3.5); opacity: 1; border-color: #fff;}
+            50% { transform: scale(3.5); opacity: 1; border-color: #fff; }
         }
 
-        /* --- VISION GALLERY OVERLAY (Z-Index 1) --- */
+        /* --- VISION GALLERY --- */
         .gallery-overlay {
             position: absolute;
             top: 0;
@@ -48,44 +47,46 @@
             width: 100%;
             height: 100%;
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 10px;
-            padding: 20px;
-            opacity: 0; /* Hidden by default */
-            transition: opacity 2s ease; /* Slow fade */
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            opacity: 0;
+            transition: opacity 2s ease;
             z-index: 1;
-            box-sizing: border-box;
         }
 
-        /* Slow fade-in when you hover the screen */
         body:hover .gallery-overlay {
-            opacity: 0.25; /* Subtle ghost-like presence */
+            opacity: 0.3; /* Subtle ghost presence */
         }
 
         .vision-item {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            filter: grayscale(100%) contrast(120%); /* Zero-bloat styling */
-            border: 1px solid #1a1a1a;
-            transition: filter 1s;
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%);
+            border: 0.5px solid #111;
+            transition: filter 0.8s;
         }
+        
+        /* Individual color pop on hover */
         .vision-item:hover {
-            filter: grayscale(0%) contrast(100%); /* Full color on individual hover */
+            filter: grayscale(0%);
         }
+
+        /* --- IMAGE SOURCES --- */
+        #img1 { background-image: url('https://images.pexels.com/photos/37347/office-sitting-room-executive-sitting.jpg'); } /* Penthouse Office */
+        #img2 { background-image: url('https://images.pexels.com/photos/3311574/pexels-photo-3311574.jpeg'); } /* Supercar */
+        #img3 { background-image: url('https://images.pexels.com/photos/4034532/pexels-photo-4034532.jpeg'); } /* Zen Minimalist */
+        #img4 { background-image: url('https://images.pexels.com/photos/1036936/pexels-photo-1036936.jpeg'); } /* Architecture */
     </style>
 </head>
 <body>
 
     <div class="gallery-overlay">
-        <img src="https://images.unsplash.com/photo-1599809275671-b39414ef1915?q=80&w=2000&auto=format&fit=crop" class="vision-item" title="DISCIPLINE">
-        
-        <img src="https://images.unsplash.com/photo-1614200187524-dc4b892acf16?q=80&w=2000&auto=format&fit=crop" class="vision-item" title="PRECISION">
-        
-        <img src="https://images.unsplash.com/photo-1542057222-149880481c91?q=80&w=2000&auto=format&fit=crop" class="vision-item" title="CONTROL">
-        
-        <img src="https://images.unsplash.com/photo-1506197305011-e4359f4f4648?q=80&w=2000&auto=format&fit=crop" class="vision-item" title="STRUCTURE">
+        <div id="img1" class="vision-item"></div>
+        <div id="img2" class="vision-item"></div>
+        <div id="img3" class="vision-item"></div>
+        <div id="img4" class="vision-item"></div>
     </div>
 
     <div class="pacer-container">
