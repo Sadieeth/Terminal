@@ -12,7 +12,8 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            font-family: 'Courier New', Courier, monospace;
+            /* Modern Tech Font Stack */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
         canvas {
             position: absolute;
@@ -29,20 +30,20 @@
             max-width: 85%;
         }
         #quote {
-            /* Increased size and removed text-shadow for clarity */
-            font-size: 28px; 
+            font-size: 32px; /* Slightly larger */
             color: #ffffff;
-            font-weight: bold;
-            margin-bottom: 12px;
-            line-height: 1.4;
+            font-weight: 800; /* Heavy weight for authority */
+            margin-bottom: 15px;
+            line-height: 1.2;
             text-transform: uppercase;
+            letter-spacing: -0.02em; /* Modern tight spacing */
         }
         #author {
-            /* Sharp white text without glow */
-            font-size: 18px;
-            color: #cccccc; 
-            letter-spacing: 4px;
+            font-size: 16px;
+            color: #888888; /* Muted grey for the author to keep focus on the quote */
+            font-weight: 400;
             text-transform: uppercase;
+            letter-spacing: 5px; /* Wide spacing for a premium look */
         }
     </style>
 </head>
@@ -107,8 +108,8 @@
             document.getElementById('author').textContent = `- ${r.a}`;
         }
 
-        setInterval(drawMatrix, 60);
-        setInterval(updateQuote, 20000); // 20-second rotation for a faster desk feel
+        setInterval(drawMatrix, 35);
+        setInterval(updateQuote, 3000000); // 20-second rotation for a faster desk feel
         updateQuote();
 
         window.addEventListener('resize', () => {
