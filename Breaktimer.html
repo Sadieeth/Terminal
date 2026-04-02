@@ -17,8 +17,17 @@
             margin: 0;
             overflow: hidden;
             position: relative;
+            transition: background-color 0.3s;
         }
-        /* Bottom Left Full Screen Toggle */
+        /* Visual Alarm Animation */
+        @keyframes alarm-flash {
+            0% { background-color: #000; color: #fff; }
+            50% { background-color: #fff; color: #000; }
+            100% { background-color: #000; color: #fff; }
+        }
+        .alarm-active {
+            animation: alarm-flash 0.5s infinite;
+        }
         .fs-toggle {
             position: absolute;
             bottom: 20px;
@@ -31,12 +40,7 @@
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: 0.2s;
             z-index: 10;
-        }
-        .fs-toggle:hover {
-            color: #fff;
-            border-color: #666;
         }
         .modes {
             display: flex;
@@ -44,7 +48,6 @@
             margin-bottom: 30px;
             z-index: 2;
         }
-        /* Large Mode Buttons */
         .modes button {
             background: transparent;
             color: #666;
@@ -53,11 +56,6 @@
             cursor: pointer;
             font-size: 1.2em; 
             letter-spacing: 1px;
-            transition: 0.2s;
-        }
-        .modes button:hover {
-            color: #aaa;
-            border-color: #555;
         }
         .modes button.active {
             color: #fff;
@@ -87,11 +85,6 @@
             text-transform: uppercase;
             font-size: 1.1em;
             cursor: pointer;
-            transition: 0.2s;
-        }
-        .btn-main:hover {
-            background: #ccc;
-            transform: scale(1.02);
         }
         .btn-reset {
             border: none;
@@ -100,14 +93,10 @@
             cursor: pointer;
             font-size: 1em;
             text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .btn-reset:hover {
-            color: #888;
         }
     </style>
 </head>
-<body>
+<body id="body">
 
     <button class="fs-toggle" id="fsBtn" onclick="toggleFS()">Full Screen</button>
 
@@ -128,6 +117,7 @@
         let timeLeft = 1500;
         let timerId = null;
         let isRunning = false;
+        const body = document.getElementById('body');
         const display = document.getElementById('display');
         const startBtn = document.getElementById('startBtn');
         const fsBtn = document.getElementById('fsBtn');
@@ -139,6 +129,7 @@
         }
 
         function setTimer(mins) {
+            stopAlarm();
             clearInterval(timerId);
             isRunning = false;
             startBtn.textContent = "Start";
@@ -152,6 +143,7 @@
         }
 
         function toggleTimer() {
+            stopAlarm();
             if (isRunning) {
                 clearInterval(timerId);
                 startBtn.textContent = "Start";
@@ -161,7 +153,7 @@
                     updateDisplay();
                     if (timeLeft <= 0) {
                         clearInterval(timerId);
-                        alert("Session complete.");
+                        triggerAlarm();
                     }
                 }, 1000);
                 startBtn.textContent = "Pause";
@@ -169,7 +161,17 @@
             isRunning = !isRunning;
         }
 
+        function triggerAlarm() {
+            body.classList.add('alarm-active');
+            startBtn.textContent = "Stop Alarm";
+        }
+
+        function stopAlarm() {
+            body.classList.remove('alarm-active');
+        }
+
         function resetTimer() {
+            stopAlarm();
             clearInterval(timerId);
             isRunning = false;
             startBtn.textContent = "Start";
@@ -182,9 +184,7 @@
 
         function toggleFS() {
             if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(err => {
-                    console.log(`Error: ${err.message}`);
-                });
+                document.documentElement.requestFullscreen();
                 fsBtn.textContent = "Exit Full Screen";
             } else {
                 if (document.exitFullscreen) {
@@ -194,11 +194,8 @@
             }
         }
 
-        // Handle escape key or manual exit
         document.addEventListener('fullscreenchange', () => {
-            if (!document.fullscreenElement) {
-                fsBtn.textContent = "Full Screen";
-            }
+            if (!document.fullscreenElement) fsBtn.textContent = "Full Screen";
         });
     </script>
 </body>
