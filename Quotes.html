@@ -2,18 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Clean Matrix Terminal - Quotes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trader Quotes Terminal</title>
     <style>
         body {
-            background-color: black;
+            background-color: #000;
             margin: 0;
             overflow: hidden;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            /* Modern Tech Font Stack */
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            text-align: center;
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            color: #fff;
         }
         canvas {
             position: absolute;
@@ -24,37 +27,35 @@
         .container {
             position: relative;
             z-index: 1;
-            text-align: center;
-            background: transparent; 
             padding: 25px;
             max-width: 85%;
         }
-        #quote {
-            font-size: 32px; /* Slightly larger */
-            color: #ffffff;
-            font-weight: 800; /* Heavy weight for authority */
-            margin-bottom: 15px;
-            line-height: 1.2;
+        .quote-text {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.3;
             text-transform: uppercase;
-            letter-spacing: -0.02em; /* Modern tight spacing */
+            letter-spacing: -0.02em;
         }
-        #author {
-            font-size: 16px;
-            color: #888888; /* Muted grey for the author to keep focus on the quote */
-            font-weight: 400;
+        .author-text {
+            font-size: 18px;
+            opacity: 0.6;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            letter-spacing: 5px; /* Wide spacing for a premium look */
         }
     </style>
 </head>
 <body>
     <canvas id="matrix"></canvas>
+    
     <div class="container">
-        <div id="quote">"ESTABLISHING LIQUIDITY..."</div>
-        <div id="author">- SYSTEM</div>
+        <div class="quote-text" id="q">"ESTABLISHING LIQUIDITY..."</div>
+        <div class="author-text" id="a">- SYSTEM</div>
     </div>
 
     <script>
+        // --- MATRIX BACKGROUND ---
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -69,7 +70,7 @@
         function drawMatrix() {
             ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; 
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#444444"; 
+            ctx.fillStyle = "#333333"; 
             ctx.font = fontSize + "px Courier New";
             for (let i = 0; i < drops.length; i++) {
                 const text = letters.charAt(Math.floor(Math.random() * letters.length));
@@ -79,38 +80,37 @@
             }
         }
 
-        // --- EXPANDED TRADING & PSYCHOLOGY DATABASE ---
+        // --- EXTENDED TRADER QUOTES ---
         const quotes = [
-            {t: "THE GOAL IS NOT TO BE RIGHT, THE GOAL IS TO BE PROFITABLE.", a: "UNKNOWN"},
+            {t: "THE TREND IS YOUR FRIEND.", a: "UNKNOWN"},
+            {t: "CUT YOUR LOSSES SHORT AND LET YOUR PROFITS RUN.", a: "ED SEYKOTA"},
+            {t: "PLAN YOUR TRADE, TRADE YOUR PLAN.", a: "UNKNOWN"},
+            {t: "THE MARKET CAN REMAIN IRRATIONAL LONGER THAN YOU CAN REMAIN SOLVENT.", a: "JOHN MAYNARD KEYNES"},
+            {t: "RULE NUMBER ONE: NEVER LOSE MONEY. RULE NUMBER TWO: NEVER FORGET RULE NUMBER ONE.", a: "WARREN BUFFETT"},
+            {t: "BE FEARFUL WHEN OTHERS ARE GREEDY AND GREEDY WHEN OTHERS ARE FEARFUL.", a: "WARREN BUFFETT"},
+            {t: "KNOW WHAT YOU OWN, AND KNOW WHY YOU OWN IT.", a: "PETER LYNCH"},
+            {t: "THE STOCK MARKET IS A DEVICE FOR TRANSFERRING MONEY FROM THE IMPATIENT TO THE PATIENT.", a: "WARREN BUFFETT"},
+            {t: "PRICE IS WHAT YOU PAY. VALUE IS WHAT YOU GET.", a: "WARREN BUFFETT"},
+            {t: "TRADE WHAT'S HAPPENING, NOT WHAT YOU THINK IS GOING TO HAPPEN.", a: "DOUG GREGORY"},
+            {t: "THE GOAL OF A SUCCESSFUL TRADER IS TO MAKE THE BEST TRADES. MONEY IS SECONDARY.", a: "ALEXANDER ELDER"},
             {t: "DON'T FOCUS ON MAKING MONEY; FOCUS ON PROTECTING WHAT YOU HAVE.", a: "PAUL TUDOR JONES"},
-            {t: "THE MARKET IS A DEVICE FOR TRANSFERRING MONEY FROM THE IMPATIENT TO THE PATIENT.", a: "WARREN BUFFETT"},
+            {t: "HE WHO DRINKS FROM THE CUP OF FOMO SHALL DROWN IN THE SEA OF RECKONING.", a: "JUSTIN KASE"},
             {t: "WINNING TRADERS DO NOT PREDICT; THEY REACT TO WHAT THE MARKET DOES.", a: "UNKNOWN"},
             {t: "YOU DON'T NEED TO KNOW WHAT IS GOING TO HAPPEN NEXT TO MAKE MONEY.", a: "MARK DOUGLAS"},
-            {t: "AMATEURS THINK ABOUT HOW MUCH THEY CAN MAKE. PROFESSIONALS THINK ABOUT HOW MUCH THEY CAN LOSE.", a: "JACK SCHWAGER"},
-            {t: "TRADING IS 10% MATHEMATICS, 10% PSYCHOLOGY, AND 80% WAITING.", a: "UNKNOWN"},
-            {t: "YOUR DISCIPLINE IS THE ONLY THING STANDING BETWEEN YOU AND THE MARKET'S LIQUIDITY.", a: "JUSTIN KASE"},
-            {t: "A LOSS IS ONLY A MISTAKE IF YOU DON'T LEARN FROM IT.", a: "MARK MINERVINI"},
-            {t: "IT'S NOT WHETHER YOU'RE RIGHT OR WRONG, BUT HOW MUCH MONEY YOU MAKE WHEN YOU'RE RIGHT.", a: "GEORGE SOROS"},
             {t: "IF YOU CAN'T MANAGE YOUR EMOTIONS, YOU CAN'T MANAGE YOUR MONEY.", a: "UNKNOWN"},
-            {t: "EVERY BATTLE IS WON BEFORE IT IS EVER FOUGHT.", a: "SUN TZU"},
             {t: "DO NOT ANTICIPATE. WAIT FOR CONFIRMATION.", a: "JESSE LIVERMORE"},
-            {t: "RISK ONLY WHAT YOU CAN AFFORD TO LOSE WITHOUT LOSING YOUR MIND.", a: "TRADING MAXIM"},
-            {t: "THE MARKET DOES NOT OWE YOU ANYTHING.", a: "UNKNOWN"},
-            {t: "BECOME A MASTER OF ONE SETUP RATHER THAN A JACK OF ALL TRADES.", a: "UNKNOWN"},
-            {t: "PRICE HAS NO MEMORY. THE MARKET DOESN'T CARE WHERE YOU BOUGHT.", a: "UNKNOWN"},
-            {t: "PLAN YOUR TRADE AND TRADE YOUR PLAN.", a: "LINDA RASCHKE"},
             {t: "TRADE THE CHART, NOT THE P&L.", a: "UNKNOWN"}
         ];
 
-        function updateQuote() {
+        function newQuote() {
             const r = quotes[Math.floor(Math.random() * quotes.length)];
-            document.getElementById('quote').textContent = `"${r.t}"`;
-            document.getElementById('author').textContent = `- ${r.a}`;
+            document.getElementById('q').textContent = `"${r.t}"`;
+            document.getElementById('a').textContent = `- ${r.a}`;
         }
 
         setInterval(drawMatrix, 35);
-        setInterval(updateQuote, 3000000); // 20-second rotation for a faster desk feel
-        updateQuote();
+        setInterval(newQuote, 300000); // 5-minute cycle
+        newQuote();
 
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
