@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trader Quotes</title>
+    <title>Trader Quotes Terminal</title>
     <style>
         body {
             background-color: #000;
@@ -36,10 +36,12 @@
             font-style: italic;
             margin-bottom: 10px;
             word-wrap: break-word;
+            line-height: 1.4;
         }
         .author-text {
             font-size: 1em;
             opacity: 0.8;
+            letter-spacing: 1px;
         }
     </style>
 </head>
@@ -47,8 +49,8 @@
     <canvas id="m"></canvas>
     
     <div class="quote-container">
-        <div class="quote-text" id="q">"THE TREND IS YOUR FRIEND."</div>
-        <div class="author-text" id="a">- UNKNOWN</div>
+        <div class="quote-text" id="q">"Initializing terminal..."</div>
+        <div class="author-text" id="a">- System</div>
     </div>
 
     <script>
@@ -77,22 +79,88 @@
         }
         setInterval(draw, 60);
 
-        // --- TRADER QUOTES ---
+        // --- FULL COMBINED QUOTES LIBRARY ---
         const quotes = [
-            {t: "THE TREND IS YOUR FRIEND.", a: "UNKNOWN"},
-            {t: "CUT YOUR LOSSES SHORT AND LET YOUR PROFITS RUN.", a: "ED SEYKOTA"},
-            {t: "PLAN YOUR TRADE, TRADE YOUR PLAN.", a: "UNKNOWN"},
-            {t: "THE MARKET CAN REMAIN IRRATIONAL LONGER THAN YOU CAN REMAIN SOLVENT.", a: "JOHN MAYNARD KEYNES"},
-            {t: "RULE NUMBER ONE: NEVER LOSE MONEY. RULE NUMBER TWO: NEVER FORGET RULE NUMBER ONE.", a: "WARREN BUFFETT"},
-            {t: "BE FEARFUL WHEN OTHERS ARE GREEDY AND GREEDY WHEN OTHERS ARE FEARFUL.", a: "WARREN BUFFETT"},
-            {t: "KNOW WHAT YOU OWN, AND KNOW WHY YOU OWN IT.", a: "PETER LYNCH"},
-            {t: "THE STOCK MARKET IS A DEVICE FOR TRANSFERRING MONEY FROM THE IMPATIENT TO THE PATIENT.", a: "WARREN BUFFETT"},
-            {t: "PRICE IS WHAT YOU PAY. VALUE IS WHAT YOU GET.", a: "WARREN BUFFETT"},
-            {t: "TRADE WHAT'S HAPPENING, NOT WHAT YOU THINK IS GOING TO HAPPEN.", a: "DOUG GREGORY"},
-            {t: "THE GOAL OF A SUCCESSFUL TRADER IS TO MAKE THE BEST TRADES. MONEY IS SECONDARY.", a: "ALEXANDER ELDER"},
-            {t: "HE WHO DRINKS FROM THE CUP OF FOMO SHALL DROWN IN THE SEA OF RECKONING.", a: "JUSTIN KASE"},
-            {t: "DON'T FOCUS ON MAKING MONEY; FOCUS ON PROTECTING WHAT YOU HAVE.", a: "PAUL TUDOR JONES"},
-            {t: "WIN OR LOSE, EVERYBODY GETS WHAT THEY WANT OUT OF THE MARKET.", a: "ED SEYKOTA"}
+            {t: "The trend is your friend.", a: "Unknown"},
+            {t: "Buy the rumor, sell the news.", a: "Old Wall Street saying"},
+            {t: "Plan your trade, trade your plan.", a: "Unknown"},
+            {t: "Cut your losses short and let your profits run.", a: "Ed Seykota"},
+            {t: "The market can remain irrational longer than you can remain solvent.", a: "John Maynard Keynes"},
+            {t: "It's not about timing the market, but time in the market.", a: "Unknown"},
+            {t: "Invest in yourself. Your career is the engine of your wealth.", a: "Paul Clitheroe"},
+            {t: "Rule number one: Never lose money. Rule number two: Never forget rule number one.", a: "Warren Buffett"},
+            {t: "The individual investor should act consistently as an investor and not as a speculator.", a: "Benjamin Graham"},
+            {t: "Wide diversification is only required when investors do not understand what they are doing.", a: "Warren Buffett"},
+            {t: "Know what you own, and know why you own it.", a: "Peter Lynch"},
+            {t: "The stock market is a device for transferring money from the impatient to the patient.", a: "Warren Buffett"},
+            {t: "In investing, what is comfortable is rarely profitable.", a: "Robert Arnott"},
+            {t: "Opportunities come infrequently. When it rains gold, put out the bucket, not the thimble.", a: "Warren Buffett"},
+            {t: "The key to investing is not assessing how much an industry is going to affect society, or how much it will grow, but rather determining the competitive advantage of any given company and, above all, the durability of that advantage.", a: "Warren Buffett"},
+            {t: "You get recessions, you have stock market declines. If you don't understand that's going to happen, then you're not ready, you won't do well in the markets.", a: "Peter Lynch"},
+            {t: "The biggest risk of all is not taking one.", a: "Mellody Hobson"},
+            {t: "Financial markets do not collapse on Good Friday.", a: "Paul Samuelson"},
+            {t: "The four most dangerous words in investing are, 'This time it's different.'", a: "Sir John Templeton"},
+            {t: "Price is what you pay. Value is what you get.", a: "Warren Buffett"},
+            {t: "Be fearful when others are greedy and greedy when others are fearful.", a: "Warren Buffett"},
+            {t: "Long-term success takes patience, discipline, and emotional stability.", a: "Unknown"},
+            {t: "The market is a pendulum that forever swings between unsustainable optimism and unjustified pessimism. The intelligent investor is a realist who sells to optimists and buys from pessimists.", a: "Benjamin Graham"},
+            {t: "You don't need to be a rocket scientist. Investing is not a game where the guy with the 160 IQ beats the guy with 130 IQ.", a: "Warren Buffett"},
+            {t: "Invest for the long haul. Don't get too greedy and don't get too scared.", a: "Shelby M.C. Davis"},
+            {t: "It's far better to buy a wonderful company at a fair price than a fair company at a wonderful price.", a: "Warren Buffett"},
+            {t: "The investor's chief problem—and even his worst enemy—is likely to be himself.", a: "Benjamin Graham"},
+            {t: "The art of making money in the stock market lies in anticipating the anticipations of the crowd.", a: "Justin Mamis"},
+            {t: "Big money is made in the stock market by being on the right side of the major moves.", a: "Jesse Livermore"},
+            {t: "Trade what's happening, not what you think is going to happen.", a: "Doug Gregory"},
+            {t: "Learn from your mistakes and don't repeat them.", a: "Unknown"},
+            {t: "Don't gamble; take calculated risks.", a: "Unknown"},
+            {t: "Patience is a key element of success in the financial markets.", a: "Unknown"},
+            {t: "Adapt to the changing market conditions.", a: "Unknown"},
+            {t: "Manage your emotions; don't let them manage you.", a: "Unknown"},
+            {t: "Stay disciplined and stick to your trading plan.", a: "Unknown"},
+            {t: "Continuous learning is essential in the world of trading.", a: "Unknown"},
+            {t: "Focus on risk management above all else.", a: "Unknown"},
+            {t: "Develop a trading strategy that suits your personality and goals.", a: "Unknown"},
+            {t: "Review and analyze your trades regularly to improve.", a: "Unknown"},
+            {t: "Don't be afraid to be wrong; learn from your losing trades.", a: "Unknown"},
+            {t: "Stay informed about market news and events.", a: "Unknown"},
+            {t: "Be patient and wait for high-probability trading setups.", a: "Unknown"},
+            {t: "Avoid overtrading; quality over quantity.", a: "Unknown"},
+            {t: "Use stop-loss orders to protect your capital.", a: "Unknown"},
+            {t: "Don't chase after quick profits; focus on sustainable growth.", a: "Unknown"},
+            {t: "Keep your trading journal and track your progress.", a: "Unknown"},
+            {t: "Be adaptable and willing to change your strategy if needed.", a: "Unknown"},
+            {t: "Understand the power of compounding.", a: "Albert Einstein"},
+            {t: "Master your trading psychology.", a: "Unknown"},
+            {t: "The goal of a successful trader is to make the best trades. Money is secondary.", a: "Alexander Elder"},
+            {t: "He who drinks from the cup of FOMO shall drown in the sea of reckoning.", a: "Justin Kase"},
+            {t: "The secret to being successful from a trading perspective is to have an indefatigable and undying thirst for knowledge.", a: "Paul Tudor Jones"},
+            {t: "Win or lose, everybody gets what they want out of the market.", a: "Ed Seykota"},
+            {t: "Throughout my financial career, I have constantly witnessed examples of people who were destroyed by their own greed.", a: "Bernard Baruch"},
+            {t: "Missing the forest for the trees, Thomas? Stay focused.", a: "Andreas Antonopoulos"},
+            {t: "Beware of investment activity that produces applause; the great moves are usually greeted by yawns.", a: "Warren Buffett"},
+            {t: "Believe you can and you're halfway there.", a: "Theodore Roosevelt"},
+            {t: "The only limit to our realization of tomorrow will be our doubts of today.", a: "Franklin D. Roosevelt"},
+            {t: "It always seems impossible until it's done.", a: "Nelson Mandela"},
+            {t: "Do not wait to strike till the iron is hot, but make it hot by striking.", a: "William Butler Yeats"},
+            {t: "The future belongs to those who believe in the beauty of their dreams.", a: "Eleanor Roosevelt"},
+            {t: "Your time is limited, don't waste it living someone else's life.", a: "Steve Jobs"},
+            {t: "The only way to do great work is to love what you do.", a: "Steve Jobs"},
+            {t: "Strive not to be a success, but rather to be of value.", a: "Albert Einstein"},
+            {t: "Success is not final, failure is not fatal: it is the courage to continue that counts.", a: "Winston Churchill"},
+            {t: "What you get by achieving your goals is not as important as what you become by achieving your goals.", a: "Zig Ziglar"},
+            {t: "Believe in yourself and all that you are. Know that there is something inside you that is greater than any obstacle.", a: "Christian D. Larson"},
+            {t: "The mind is everything. What you think you become.", a: "Buddha"},
+            {t: "Start where you are. Use what you have. Do what you can.", a: "Arthur Ashe"},
+            {t: "The best way to predict the future is to create it.", a: "Peter Drucker"},
+            {t: "Don't watch the clock; do what it does. Keep going.", a: "Sam Levenson"},
+            {t: "Challenges are what make life interesting. Overcoming them is what makes life meaningful.", a: "Joshua Marine"},
+            {t: "It is never too late to be what you might have been.", a: "George Eliot"},
+            {t: "Happiness is not something readymade. It comes from your own actions.", a: "Dalai Lama"},
+            {t: "The only person you are destined to become is the person you decide to be.", a: "Ralph Waldo Emerson"},
+            {t: "With the new day comes new strength and new thoughts.", a: "Eleanor Roosevelt"},
+            {t: "Fall seven times and stand up eight.", a: "Japanese Proverb"},
+            {t: "Be the change that you wish to see in the world.", a: "Mahatma Gandhi"},
+            {t: "The journey of a thousand miles begins with a single step.", a: "Lao Tzu"}
         ];
 
         function newQuote() {
@@ -101,7 +169,6 @@
             document.getElementById('a').textContent = `- ${r.a}`;
         }
 
-        // 5-minute auto-rotation
         setInterval(newQuote, 300000); 
         newQuote();
 
