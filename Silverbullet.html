@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        #terminal { text-align: center; }
+        .status-active { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        .label { font-size: 12px; letter-spacing: 3px; opacity: 0.5; margin-bottom: 10px; }
+        .timer { font-size: 48px; font-weight: bold; }
+        .diamond { font-size: 40px; opacity: 0.2; }
+    </style>
+</head>
+<body>
+    <div id="terminal"></div>
+
+    <script>
+        function updateHUD() {
+            const now = new Date();
+            const hrs = now.getHours();
+            const mins = now.getMinutes();
+            const secs = now.getSeconds();
+            const currentTime = hrs + (mins / 60);
+
+            let active = false;
+            let targetHr = 0;
+
+            // Session 1: 6am - 9am
+            if (hrs >= 6 && hrs < 9) {
+                active = true;
+                targetHr = 9;
+            } 
+            // Session 2: 10am - 12pm
+            else if (hrs >= 10 && hrs < 12) {
+                active = true;
+                targetHr = 12;
+            }
+
+            const container = document.getElementById('terminal');
+
+            if (active) {
+                const diff = (targetHr * 3600) - ((hrs * 3600) + (mins * 60) + secs);
+                const h = Math.floor(diff / 3600);
+                const m = Math.floor((diff % 3600) / 60);
+                const s = diff % 60;
+                
+                const displayM = m < 10 ? '0' + m : m;
+                const displayS = s < 10 ? '0' + s : s;
+
+                container.innerHTML = `
+                    <div class="status-active">
+                        <div class="label">SESSION ACTIVE</div>
+                        <div class="timer">${h}:${displayM}:${displayS}</div>
+                    </div>`;
+            } else {
+                container.innerHTML = `<div class="diamond">◆</div>`;
+            }
+        }
+
+        setInterval(updateHUD, 1000);
+        updateHUD();
+    </script>
+</body>
+</html>
