@@ -28,11 +28,11 @@
         .circle {
             width: 80px;
             height: 80px;
-            border: 2px solid #333; 
+            border: 2px solid #222; 
             border-radius: 50%;
             margin: 0 auto;
             animation: breathe 10s infinite ease-in-out;
-            box-shadow: 0 0 20px rgba(255,255,255,0.05);
+            box-shadow: 0 0 30px rgba(255,255,255,0.03);
             transition: border-color 1s;
         }
         @keyframes breathe {
@@ -40,7 +40,7 @@
             50% { transform: scale(3.5); opacity: 1; border-color: #fff;}
         }
 
-        /* --- VISION GALLERY --- */
+        /* --- VISION GALLERY (Perfectly Centered Grid) --- */
         .gallery-overlay {
             position: absolute;
             top: 0;
@@ -48,9 +48,9 @@
             width: 100%;
             height: 100%;
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 15px;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 20px; /* Clean architectural spacing */
             padding: 30px;
             opacity: 0; 
             transition: opacity 2.5s ease; 
@@ -59,29 +59,33 @@
         }
 
         body:hover .gallery-overlay {
-            opacity: 0.25; 
+            opacity: 0.3; 
         }
 
         .vision-item {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* Crops to fill */
+            object-position: center; /* Ensures the subject stays centered */
             filter: grayscale(100%); 
-            border: 1px solid #1a1a1a;
-            transition: filter 1s;
+            border: 1px solid #111;
+            transition: filter 1.2s ease, opacity 0.5s;
         }
+        
         .vision-item:hover {
-            filter: grayscale(0%); 
+            filter: grayscale(0%);
+            opacity: 1 !important;
+            border-color: #333;
         }
     </style>
 </head>
 <body>
 
     <div class="gallery-overlay">
-        <img src="penthouse.jpg" class="vision-item" title="DISCIPLINE" alt="DISCIPLINE">
-        <img src="supercar.jpg" class="vision-item" title="PRECISION" alt="PRECISION">
-        <img src="sanctuary.jpg" class="vision-item" title="CONTROL" alt="CONTROL">
-        <img src="structure.jpg" class="vision-item" title="STRUCTURE" alt="STRUCTURE">
+        <img src="penthouse.jpg" class="vision-item" title="DISCIPLINE">
+        <img src="supercar.jpg" class="vision-item" title="PRECISION">
+        <img src="sanctuary.jpg" class="vision-item" title="CONTROL">
+        <img src="structure.jpg" class="vision-item" title="STRUCTURE">
     </div>
 
     <div class="pacer-container">
