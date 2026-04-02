@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Timer</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .modes {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        button {
+            background: transparent;
+            color: #888;
+            border: 1px solid #333;
+            padding: 5px 12px;
+            cursor: pointer;
+            font-size: 0.8em;
+            letter-spacing: 1px;
+            transition: 0.2s;
+        }
+        button.active {
+            color: #fff;
+            border-color: #fff;
+        }
+        .timer-display {
+            font-size: 4em;
+            font-weight: 300;
+            margin: 10px 0;
+            font-variant-numeric: tabular-nums;
+        }
+        .controls {
+            margin-top: 15px;
+        }
+        .btn-main {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 10px 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+        .btn-main:hover {
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="modes">
+        <button id="pomo" class="active" onclick="setTimer(25)">POMODORO</button>
+        <button id="short" onclick="setTimer(5)">SHORT BREAK</button>
+        <button id="long" onclick="setTimer(15)">LONG BREAK</button>
+    </div>
+
+    <div class="timer-display" id="display">25:00</div>
+
+    <div class="controls">
+        <button class="btn-main" id="startBtn" onclick="toggleTimer()">Start</button>
+        <button onclick="resetTimer()" style="border:none; background:none; color:#555; cursor:pointer;">Reset</button>
+    </div>
+
+    <script>
+        let timeLeft = 1500;
+        let timerId = null;
+        let isRunning = false;
+        const display = document.getElementById('display');
+        const startBtn = document.getElementById('startBtn');
+
+        function updateDisplay() {
+            const mins = Math.floor(timeLeft / 60);
+            const secs = timeLeft % 60;
+            display.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function setTimer(mins) {
+            clearInterval(timerId);
+            isRunning = false;
+            startBtn.textContent = "Start";
+            timeLeft = mins * 60;
+            updateDisplay();
+            
+            // UI Active State
+            document.querySelectorAll('.modes button').forEach(btn => btn.classList.remove('active'));
+            if(mins === 25) document.getElementById('pomo').classList.add('active');
+            if(mins === 5) document.getElementById('short').classList.add('active');
+            if(mins === 15) document.getElementById('long').classList.add('active');
+        }
+
+        function toggleTimer() {
+            if (isRunning) {
+                clearInterval(timerId);
+                startBtn.textContent = "Start";
+            } else {
+                timerId = setInterval(() => {
+                    timeLeft--;
+                    updateDisplay();
+                    if (timeLeft <= 0) {
+                        clearInterval(timerId);
+                        alert("Session Complete");
+                    }
+                }, 1000);
+                startBtn.textContent = "Pause";
+            }
+            isRunning = !isRunning;
+        }
+
+        function resetTimer() {
+            clearInterval(timerId);
+            isRunning = false;
+            startBtn.textContent = "Start";
+            const activeMode = document.querySelector('.active').id;
+            if(activeMode === 'pomo') timeLeft = 1500;
+            else if(activeMode === 'short') timeLeft = 300;
+            else timeLeft = 900;
+            updateDisplay();
+        }
+    </script>
+</body>
+</html>
