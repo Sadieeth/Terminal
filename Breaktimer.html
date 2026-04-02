@@ -18,7 +18,7 @@
             overflow: hidden;
             position: relative;
         }
-        /* Bottom Left Fullscreen Toggle */
+        /* Bottom Left Full Screen Toggle */
         .fs-toggle {
             position: absolute;
             bottom: 20px;
@@ -26,33 +26,38 @@
             background: none;
             border: 1px solid #222;
             color: #444;
-            padding: 6px 10px;
-            font-size: 11px;
+            padding: 8px 12px;
+            font-size: 12px;
             cursor: pointer;
             text-transform: uppercase;
+            letter-spacing: 1px;
             transition: 0.2s;
             z-index: 10;
         }
         .fs-toggle:hover {
-            color: #888;
-            border-color: #444;
+            color: #fff;
+            border-color: #666;
         }
         .modes {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             margin-bottom: 30px;
             z-index: 2;
         }
-        /* Bigger Mode Buttons */
+        /* Large Mode Buttons */
         .modes button {
             background: transparent;
             color: #666;
             border: 1px solid #333;
-            padding: 10px 20px;
+            padding: 12px 24px;
             cursor: pointer;
-            font-size: 1.1em; /* Increased Size */
+            font-size: 1.2em; 
             letter-spacing: 1px;
             transition: 0.2s;
+        }
+        .modes button:hover {
+            color: #aaa;
+            border-color: #555;
         }
         .modes button.active {
             color: #fff;
@@ -60,7 +65,7 @@
             background: rgba(255, 255, 255, 0.05);
         }
         .timer-display {
-            font-size: 10vw; /* Slightly larger for better FS scaling */
+            font-size: 10vw;
             font-weight: 300;
             margin: 10px 0;
             font-variant-numeric: tabular-nums;
@@ -71,27 +76,29 @@
             z-index: 2;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 25px;
         }
         .btn-main {
             background: #fff;
             color: #000;
             border: none;
-            padding: 12px 40px;
+            padding: 15px 50px;
             font-weight: bold;
             text-transform: uppercase;
-            font-size: 1em;
+            font-size: 1.1em;
             cursor: pointer;
+            transition: 0.2s;
         }
         .btn-main:hover {
             background: #ccc;
+            transform: scale(1.02);
         }
         .btn-reset {
             border: none;
             background: none;
             color: #444;
             cursor: pointer;
-            font-size: 0.9em;
+            font-size: 1em;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -102,7 +109,7 @@
 </head>
 <body>
 
-    <button class="fs-toggle" onclick="toggleFS()">FS</button>
+    <button class="fs-toggle" id="fsBtn" onclick="toggleFS()">Full Screen</button>
 
     <div class="modes">
         <button id="pomo" class="active" onclick="setTimer(25)">Pomodoro</button>
@@ -123,6 +130,7 @@
         let isRunning = false;
         const display = document.getElementById('display');
         const startBtn = document.getElementById('startBtn');
+        const fsBtn = document.getElementById('fsBtn');
 
         function updateDisplay() {
             const mins = Math.floor(timeLeft / 60);
@@ -174,15 +182,24 @@
 
         function toggleFS() {
             if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen();
-                document.querySelector('.fs-toggle').textContent = "Exit";
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Error: ${err.message}`);
+                });
+                fsBtn.textContent = "Exit Full Screen";
             } else {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
-                    document.querySelector('.fs-toggle').textContent = "FS";
+                    fsBtn.textContent = "Full Screen";
                 }
             }
         }
+
+        // Handle escape key or manual exit
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                fsBtn.textContent = "Full Screen";
+            }
+        });
     </script>
 </body>
 </html>
