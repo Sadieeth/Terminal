@@ -16,11 +16,29 @@
             height: 100vh;
             margin: 0;
             overflow: hidden;
+            position: relative;
+        }
+        .fs-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: 1px solid #333;
+            color: #555;
+            padding: 5px 10px;
+            font-size: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        .fs-toggle:hover {
+            color: #fff;
+            border-color: #555;
         }
         .modes {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
+            z-index: 2;
         }
         button {
             background: transparent;
@@ -37,13 +55,15 @@
             border-color: #fff;
         }
         .timer-display {
-            font-size: 4em;
+            font-size: 8vw; /* Scales with screen size */
             font-weight: 300;
             margin: 10px 0;
             font-variant-numeric: tabular-nums;
+            z-index: 2;
         }
         .controls {
             margin-top: 15px;
+            z-index: 2;
         }
         .btn-main {
             background: #fff;
@@ -61,17 +81,19 @@
 </head>
 <body>
 
+    <button class="fs-toggle" onclick="toggleFS()">Fullscreen</button>
+
     <div class="modes">
-        <button id="pomo" class="active" onclick="setTimer(25)">POMODORO</button>
-        <button id="short" onclick="setTimer(5)">SHORT BREAK</button>
-        <button id="long" onclick="setTimer(15)">LONG BREAK</button>
+        <button id="pomo" class="active" onclick="setTimer(25)">Pomodoro</button>
+        <button id="short" onclick="setTimer(5)">Short Break</button>
+        <button id="long" onclick="setTimer(15)">Long Break</button>
     </div>
 
     <div class="timer-display" id="display">25:00</div>
 
     <div class="controls">
         <button class="btn-main" id="startBtn" onclick="toggleTimer()">Start</button>
-        <button onclick="resetTimer()" style="border:none; background:none; color:#555; cursor:pointer;">Reset</button>
+        <button onclick="resetTimer()" style="border:none; background:none; color:#555; cursor:pointer; margin-left:10px;">Reset</button>
     </div>
 
     <script>
@@ -94,7 +116,6 @@
             timeLeft = mins * 60;
             updateDisplay();
             
-            // UI Active State
             document.querySelectorAll('.modes button').forEach(btn => btn.classList.remove('active'));
             if(mins === 25) document.getElementById('pomo').classList.add('active');
             if(mins === 5) document.getElementById('short').classList.add('active');
@@ -111,7 +132,7 @@
                     updateDisplay();
                     if (timeLeft <= 0) {
                         clearInterval(timerId);
-                        alert("Session Complete");
+                        alert("Time's up!");
                     }
                 }, 1000);
                 startBtn.textContent = "Pause";
@@ -128,6 +149,18 @@
             else if(activeMode === 'short') timeLeft = 300;
             else timeLeft = 900;
             updateDisplay();
+        }
+
+        function toggleFS() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+                document.querySelector('.fs-toggle').textContent = "Exit";
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                    document.querySelector('.fs-toggle').textContent = "Fullscreen";
+                }
+            }
         }
     </script>
 </body>
